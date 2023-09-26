@@ -287,18 +287,32 @@ const Whiteboard = ({
     undoManager.clear(); 
 
   }
-  function handleLoadCanvasState(state) {
-    if (board && state) {
-      //board.clearCanvas();
 
-      board.canvas.loadFromJSON(state, () => {
-        board.canvas.renderAll();
-       // setCanvasStates([]);
-      });
+  
+  // function handleLoadCanvasState(state) {
+  //   if (board && state) {
+  //     //board.clearCanvas();
+
+  //     board.canvas.loadFromJSON(state, () => {
+  //       board.canvas.renderAll();
+  //      // setCanvasStates([]);
+  //     });
+  //   }
+  // }
+
+  function loadCanvasState() {
+    if (canvasStates.length > 0) {
+      const lastCanvasState = canvasStates[canvasStates.length - 1];
+  
+      if (board && lastCanvasState) {
+        board.clearCanvas(); 
+        board.canvas.loadFromJSON(lastCanvasState, () => {
+          board.canvas.renderAll();
+        });
+      }
     }
   }
-
-
+  
   function getFullData(canvas) {
     if (!canvas) return;
 
@@ -529,6 +543,11 @@ const Whiteboard = ({
               Save
             </ButtonS>
           </ToolbarItemS>
+          <ToolbarItemS>
+            <ButtonS type="button" onClick={loadCanvasState}>
+              Load
+            </ButtonS>
+          </ToolbarItemS>
         </ToolbarS>
         <ZoomBarS>
           <ToolbarItemS>
@@ -570,7 +589,7 @@ const Whiteboard = ({
           updateFileReaderInfo={updateFileReaderInfo}
         />
       </PDFWrapperS> */}
-      <div>
+      {/* <div>
         {canvasStates.map((state, index) => (
           <div className='canvasimg' key={index}>
               <ButtonS
@@ -581,7 +600,7 @@ const Whiteboard = ({
          <img src={imageList[index]} height={150} alt='from canvas'/>
           </div>
         ))}
-      </div>
+      </div> */}
     </WhiteBoardS>
   );
 };
