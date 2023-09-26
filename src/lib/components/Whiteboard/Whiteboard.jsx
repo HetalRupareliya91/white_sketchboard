@@ -80,6 +80,7 @@ const Whiteboard = ({
 
   const [canvasStates, setCanvasStates] = useState([]);
   const [isCanvasClear, setIsCanvasClear] = useState(false);
+  const [isClearAllClicked, setIsClearAllClicked] = useState(false);
 
   const [board, setBoard] = useState();
   const [canvasObjectsPerPage, setCanvasObjectsPerPage] = useState({});
@@ -251,14 +252,21 @@ const Whiteboard = ({
   }
 
   function handleRedo() {
-    undoManager.redo();
+    if (isClearAllClicked) {
+      handleRedoAll(); 
+      setIsClearAllClicked(false);
+    } else {
+      undoManager.redo();
+    }
   }
+  
 
   function handleUndoAll() {
     while (undoManager.hasUndo()) {
       undoManager.undo();
     }
     setIsCanvasClear(true);
+    setIsClearAllClicked(true);
   }
 
   function handleRedoAll() {
@@ -276,6 +284,8 @@ const Whiteboard = ({
     // console.log('Saved!');
 
     board.clearCanvas();
+    undoManager.clear(); 
+
   }
   function handleLoadCanvasState(state) {
     if (board && state) {
