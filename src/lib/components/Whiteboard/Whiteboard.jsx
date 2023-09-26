@@ -563,24 +563,22 @@ const Whiteboard = ({
       </ToolbarHolderS>
 
       <canvas ref={canvasRef} id="canvas" />
-      <PDFWrapperS>
+      {/* <PDFWrapperS>
         <PdfReader
           fileReaderInfo={fileReaderInfo}
           onPageChange={handlePageChange}
           updateFileReaderInfo={updateFileReaderInfo}
         />
-      </PDFWrapperS>
+      </PDFWrapperS> */}
       <div>
         {canvasStates.map((state, index) => (
-          <div key={index}>
-            <div className='canvasimg'><img src={imageList[index]} height={180} alt='from canvas'/></div>
-            <div className='loadbtn'><ButtonS
+          <div className='canvasimg' key={index}>
+              <ButtonS
               onClick={() => handleLoadCanvasState(state)}
-              style={{ backgroundColor: 'blue', color: 'white' , padding: '10px'}}
-            >
+              style={{ backgroundColor: 'blue', color: 'white' , padding: '6px 15px'}} >
               Load
             </ButtonS>
-          </div>
+         <img src={imageList[index]} height={150} alt='from canvas'/>
           </div>
         ))}
       </div>
